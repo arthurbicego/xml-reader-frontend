@@ -1,0 +1,60 @@
+<app-header></app-header>
+
+<div class="container select-container">
+  <h2>Selecione os Arquivos .XML</h2>
+  <input type="file" #fileInput style="display: none;" multiple (change)="onFileSelected($event)">
+  <button mat-raised-button color="basic" class="select-button" (click)="fileInput.click()">Selecionar</button>
+  <div *ngIf="selectedFiles.length > 0">
+    <h2>Arquivos selecionados:</h2>
+    <ul>
+      <li *ngFor="let file of selectedFiles" class="file-item">
+        <span class="file-name">{{ file.name }}</span>
+        <div class="cancel-button">
+          <button mat-mini-fab class="cancel-button-inner" (click)="removeFile(file)">
+            <mat-icon class="">cancel</mat-icon>
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <button mat-raised-button color="primary" (click)="saveDocuments()"
+    [disabled]="selectedFiles.length === 0">Salvar</button>
+</div>
+
+<div class="container list-container">
+  <h2>Lista de Arquivos</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>dhEmi</th>
+        <th>nNF</th>
+        <th>cUF</th>
+        <th>Emit CNPJ</th>
+        <th>Emit xFant</th>
+        <th>Dest CNPJ</th>
+        <th>Dest xNome</th>
+        <th>ICMS Tot vTotTrib</th>
+        <th>ICMS Tot vNF</th>
+        <th>Download</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="xmlList.length>0">
+      <tr *ngFor="let xml of xmlList">
+        <td>{{ xml.fileId }}</td>
+        <td>{{ xml.idedhEmi }}</td>
+        <td>{{ xml.idenNF }}</td>
+        <td>{{ xml.idecUF }}</td>
+        <td>{{ xml.emitCNPJ }}</td>
+        <td>{{ xml.emitxFant }}</td>
+        <td>{{ xml.destCNPJ }}</td>
+        <td>{{ xml.destxNome }}</td>
+        <td>{{ xml.icmstotvTotTrib }}</td>
+        <td>{{ xml.icmstotvNF }}</td>
+        <td>
+          <button mat-raised-button color="basic" (click)="downloadFile(xml.id)">Download</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
